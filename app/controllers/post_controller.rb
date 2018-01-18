@@ -4,7 +4,7 @@ class PostController < ApplicationController
   layout "default"
   helper :avatar
 
-  before_action :member_only, :only => [:create, :destroy, :delete, :flag, :revert_tags, :activate, :update_batch, :vote]
+  before_action :member_only, :only => [:create, :destroy, :delete, :flag, :activate, :update_batch, :vote]
   before_action :post_member_only, :only => [:update, :upload, :flag]
   before_action :janitor_only, :only => [:moderate, :undelete]
   before_action :set_query_date, :only => [:popular_by_day, :popular_by_week, :popular_by_month]
@@ -486,14 +486,6 @@ class PostController < ApplicationController
     @posts = Post.available.where(:created_at => @start..@end).order(:score => :desc).limit(40)
 
     respond_to_list("posts")
-  end
-
-  def revert_tags
-    user_id = @current_user.id
-    @post = Post.find(params[:id])
-    @post.update_attributes(:tags => PostTagHistory.find(params[:history_id].to_i).tags, :updater_user_id => user_id, :updater_ip_addr => request.remote_ip)
-
-    respond_to_success("Tags reverted", :action => "show", :id => @post.id, :tag_title => @post.tag_title)
   end
 
   def vote

@@ -1,12 +1,6 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.3
--- Dumped by pg_dump version 9.5.3
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -358,6 +352,18 @@ CREATE SEQUENCE advertisements_id_seq
 --
 
 ALTER SEQUENCE advertisements_id_seq OWNED BY advertisements.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
@@ -1198,20 +1204,6 @@ CREATE SEQUENCE post_tag_histories_id_seq
 
 
 --
--- Name: post_tag_histories; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE post_tag_histories (
-    id integer DEFAULT nextval('post_tag_histories_id_seq'::regclass) NOT NULL,
-    post_id integer NOT NULL,
-    tags text NOT NULL,
-    user_id integer,
-    ip_addr inet,
-    created_at timestamp without time zone DEFAULT now() NOT NULL
-);
-
-
---
 -- Name: post_votes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1604,161 +1596,161 @@ CREATE TABLE wiki_pages (
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: advertisements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY advertisements ALTER COLUMN id SET DEFAULT nextval('advertisements_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: artist_urls id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artist_urls ALTER COLUMN id SET DEFAULT nextval('artist_urls_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: bans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bans ALTER COLUMN id SET DEFAULT nextval('bans_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: batch_uploads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY batch_uploads ALTER COLUMN id SET DEFAULT nextval('batch_uploads_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: comment_fragments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comment_fragments ALTER COLUMN id SET DEFAULT nextval('comment_fragments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: dmails id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dmails ALTER COLUMN id SET DEFAULT nextval('dmails_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: flagged_post_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY flagged_post_details ALTER COLUMN id SET DEFAULT nextval('flagged_post_details_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: histories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY histories ALTER COLUMN id SET DEFAULT nextval('histories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: history_changes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY history_changes ALTER COLUMN id SET DEFAULT nextval('history_changes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: inline_images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inline_images ALTER COLUMN id SET DEFAULT nextval('inline_images_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: inlines id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inlines ALTER COLUMN id SET DEFAULT nextval('inlines_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: ip_bans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ip_bans ALTER COLUMN id SET DEFAULT nextval('ip_bans_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: job_tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY job_tasks ALTER COLUMN id SET DEFAULT nextval('job_tasks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pools id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools ALTER COLUMN id SET DEFAULT nextval('pools_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pools_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools_posts ALTER COLUMN id SET DEFAULT nextval('pools_posts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: post_frames id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_frames ALTER COLUMN id SET DEFAULT nextval('post_frames_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: post_votes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_votes ALTER COLUMN id SET DEFAULT nextval('post_votes_id_seq'::regclass);
 
 
 --
--- Name: change_seq; Type: DEFAULT; Schema: public; Owner: -
+-- Name: posts change_seq; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts ALTER COLUMN change_seq SET DEFAULT nextval('post_change_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: tag_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_subscriptions ALTER COLUMN id SET DEFAULT nextval('tag_subscriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_blacklisted_tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_blacklisted_tags ALTER COLUMN id SET DEFAULT nextval('user_blacklisted_tags_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_logs ALTER COLUMN id SET DEFAULT nextval('user_logs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_records id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_records ALTER COLUMN id SET DEFAULT nextval('user_records_id_seq'::regclass);
 
 
 --
--- Name: advertisements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: advertisements advertisements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY advertisements
@@ -1766,7 +1758,15 @@ ALTER TABLE ONLY advertisements
 
 
 --
--- Name: artist_urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: artist_urls artist_urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artist_urls
@@ -1774,7 +1774,7 @@ ALTER TABLE ONLY artist_urls
 
 
 --
--- Name: artists_name_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: artists artists_name_uniq; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artists
@@ -1782,7 +1782,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: artists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: artists artists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artists
@@ -1790,7 +1790,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: bans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: bans bans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bans
@@ -1798,7 +1798,7 @@ ALTER TABLE ONLY bans
 
 
 --
--- Name: batch_uploads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: batch_uploads batch_uploads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY batch_uploads
@@ -1806,7 +1806,7 @@ ALTER TABLE ONLY batch_uploads
 
 
 --
--- Name: batch_uploads_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: batch_uploads batch_uploads_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY batch_uploads
@@ -1814,7 +1814,7 @@ ALTER TABLE ONLY batch_uploads
 
 
 --
--- Name: comment_fragments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comment_fragments comment_fragments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comment_fragments
@@ -1822,7 +1822,7 @@ ALTER TABLE ONLY comment_fragments
 
 
 --
--- Name: comment_fragments_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comment_fragments comment_fragments_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comment_fragments
@@ -1830,7 +1830,7 @@ ALTER TABLE ONLY comment_fragments
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -1838,7 +1838,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: dmails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: dmails dmails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dmails
@@ -1846,7 +1846,7 @@ ALTER TABLE ONLY dmails
 
 
 --
--- Name: favorite_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_subscriptions favorite_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_subscriptions
@@ -1854,7 +1854,7 @@ ALTER TABLE ONLY tag_subscriptions
 
 
 --
--- Name: favorites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: favorites favorites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY favorites
@@ -1862,7 +1862,7 @@ ALTER TABLE ONLY favorites
 
 
 --
--- Name: flagged_post_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: flagged_post_details flagged_post_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY flagged_post_details
@@ -1870,7 +1870,7 @@ ALTER TABLE ONLY flagged_post_details
 
 
 --
--- Name: forum_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: forum_posts forum_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY forum_posts
@@ -1878,7 +1878,7 @@ ALTER TABLE ONLY forum_posts
 
 
 --
--- Name: histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: histories histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY histories
@@ -1886,7 +1886,7 @@ ALTER TABLE ONLY histories
 
 
 --
--- Name: history_changes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: history_changes history_changes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY history_changes
@@ -1894,7 +1894,7 @@ ALTER TABLE ONLY history_changes
 
 
 --
--- Name: inline_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: inline_images inline_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inline_images
@@ -1902,7 +1902,7 @@ ALTER TABLE ONLY inline_images
 
 
 --
--- Name: inlines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: inlines inlines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inlines
@@ -1910,7 +1910,7 @@ ALTER TABLE ONLY inlines
 
 
 --
--- Name: ip_bans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ip_bans ip_bans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ip_bans
@@ -1918,7 +1918,7 @@ ALTER TABLE ONLY ip_bans
 
 
 --
--- Name: job_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: job_tasks job_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY job_tasks
@@ -1926,7 +1926,7 @@ ALTER TABLE ONLY job_tasks
 
 
 --
--- Name: note_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: note_versions note_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY note_versions
@@ -1934,7 +1934,7 @@ ALTER TABLE ONLY note_versions
 
 
 --
--- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notes
@@ -1942,7 +1942,7 @@ ALTER TABLE ONLY notes
 
 
 --
--- Name: pools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pools pools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools
@@ -1950,7 +1950,7 @@ ALTER TABLE ONLY pools
 
 
 --
--- Name: pools_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools_posts
@@ -1958,7 +1958,7 @@ ALTER TABLE ONLY pools_posts
 
 
 --
--- Name: post_frames_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: post_frames post_frames_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_frames
@@ -1966,15 +1966,7 @@ ALTER TABLE ONLY post_frames
 
 
 --
--- Name: post_tag_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY post_tag_histories
-    ADD CONSTRAINT post_tag_histories_pkey PRIMARY KEY (id);
-
-
---
--- Name: post_votes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: post_votes post_votes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_votes
@@ -1982,7 +1974,7 @@ ALTER TABLE ONLY post_votes
 
 
 --
--- Name: post_votes_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: post_votes post_votes_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_votes
@@ -1990,7 +1982,7 @@ ALTER TABLE ONLY post_votes
 
 
 --
--- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -1998,7 +1990,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: table_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: table_data table_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY table_data
@@ -2006,7 +1998,7 @@ ALTER TABLE ONLY table_data
 
 
 --
--- Name: tag_aliases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_aliases tag_aliases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_aliases
@@ -2014,7 +2006,7 @@ ALTER TABLE ONLY tag_aliases
 
 
 --
--- Name: tag_implications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_implications tag_implications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_implications
@@ -2022,7 +2014,7 @@ ALTER TABLE ONLY tag_implications
 
 
 --
--- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags
@@ -2032,7 +2024,7 @@ ALTER TABLE tags CLUSTER ON tags_pkey;
 
 
 --
--- Name: user_blacklisted_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_blacklisted_tags user_blacklisted_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_blacklisted_tags
@@ -2040,7 +2032,7 @@ ALTER TABLE ONLY user_blacklisted_tags
 
 
 --
--- Name: user_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_logs user_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_logs
@@ -2048,7 +2040,7 @@ ALTER TABLE ONLY user_logs
 
 
 --
--- Name: user_logs_user_ip; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_logs user_logs_user_ip; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_logs
@@ -2056,7 +2048,7 @@ ALTER TABLE ONLY user_logs
 
 
 --
--- Name: user_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_records user_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_records
@@ -2064,7 +2056,7 @@ ALTER TABLE ONLY user_records
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -2072,7 +2064,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: wiki_page_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: wiki_page_versions wiki_page_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY wiki_page_versions
@@ -2080,7 +2072,7 @@ ALTER TABLE ONLY wiki_page_versions
 
 
 --
--- Name: wiki_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: wiki_pages wiki_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY wiki_pages
@@ -2162,13 +2154,6 @@ CREATE INDEX idx_pools__name_nat ON pools USING btree (nat_sort(name));
 --
 
 CREATE INDEX idx_pools_posts__sequence_nat ON pools_posts USING btree (nat_sort(sequence));
-
-
---
--- Name: idx_post_tag_histories__post; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_post_tag_histories__post ON post_tag_histories USING btree (post_id);
 
 
 --
@@ -2466,13 +2451,6 @@ CREATE INDEX index_post_frames_on_post_id ON post_frames USING btree (post_id);
 
 
 --
--- Name: index_post_tag_histories_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_post_tag_histories_on_user_id ON post_tag_histories USING btree (user_id);
-
-
---
 -- Name: index_post_votes_on_post_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2683,7 +2661,7 @@ CREATE INDEX wiki_pages_search_idx ON wiki_pages USING gin (text_search_index);
 
 
 --
--- Name: delete_histories; Type: RULE; Schema: public; Owner: -
+-- Name: pools delete_histories; Type: RULE; Schema: public; Owner: -
 --
 
 CREATE RULE delete_histories AS
@@ -2695,7 +2673,7 @@ CREATE RULE delete_histories AS
 
 
 --
--- Name: delete_histories; Type: RULE; Schema: public; Owner: -
+-- Name: pools_posts delete_histories; Type: RULE; Schema: public; Owner: -
 --
 
 CREATE RULE delete_histories AS
@@ -2707,7 +2685,7 @@ CREATE RULE delete_histories AS
 
 
 --
--- Name: delete_histories; Type: RULE; Schema: public; Owner: -
+-- Name: posts delete_histories; Type: RULE; Schema: public; Owner: -
 --
 
 CREATE RULE delete_histories AS
@@ -2719,7 +2697,7 @@ CREATE RULE delete_histories AS
 
 
 --
--- Name: delete_histories; Type: RULE; Schema: public; Owner: -
+-- Name: tags delete_histories; Type: RULE; Schema: public; Owner: -
 --
 
 CREATE RULE delete_histories AS
@@ -2731,98 +2709,98 @@ CREATE RULE delete_histories AS
 
 
 --
--- Name: pools_posts_delete_trg; Type: TRIGGER; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_delete_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER pools_posts_delete_trg BEFORE DELETE ON pools_posts FOR EACH ROW EXECUTE PROCEDURE pools_posts_delete_trg();
 
 
 --
--- Name: pools_posts_insert_trg; Type: TRIGGER; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_insert_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER pools_posts_insert_trg BEFORE INSERT ON pools_posts FOR EACH ROW EXECUTE PROCEDURE pools_posts_insert_trg();
 
 
 --
--- Name: pools_posts_update_trg; Type: TRIGGER; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_update_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER pools_posts_update_trg BEFORE UPDATE ON pools_posts FOR EACH ROW EXECUTE PROCEDURE pools_posts_update_trg();
 
 
 --
--- Name: posts_tags_array_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: posts posts_tags_array_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER posts_tags_array_update BEFORE INSERT OR UPDATE ON posts FOR EACH ROW EXECUTE PROCEDURE posts_tags_array_update();
 
 
 --
--- Name: trg_cleanup_history; Type: TRIGGER; Schema: public; Owner: -
+-- Name: history_changes trg_cleanup_history; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_cleanup_history AFTER DELETE ON history_changes FOR EACH ROW EXECUTE PROCEDURE trg_purge_histories();
 
 
 --
--- Name: trg_comment_search_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: comments trg_comment_search_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_comment_search_update BEFORE INSERT OR UPDATE ON comments FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('text_search_index', 'pg_catalog.english', 'body');
 
 
 --
--- Name: trg_forum_post_search_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: forum_posts trg_forum_post_search_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_forum_post_search_update BEFORE INSERT OR UPDATE ON forum_posts FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('text_search_index', 'pg_catalog.english', 'title', 'body');
 
 
 --
--- Name: trg_history_changes_value_index_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: history_changes trg_history_changes_value_index_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_history_changes_value_index_update BEFORE INSERT OR UPDATE ON history_changes FOR EACH ROW EXECUTE PROCEDURE history_changes_index_trigger();
 
 
 --
--- Name: trg_note_search_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: notes trg_note_search_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_note_search_update BEFORE INSERT OR UPDATE ON notes FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('text_search_index', 'pg_catalog.english', 'body');
 
 
 --
--- Name: trg_pools_search_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: pools trg_pools_search_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_pools_search_update BEFORE INSERT OR UPDATE ON pools FOR EACH ROW EXECUTE PROCEDURE pools_search_update_trigger();
 
 
 --
--- Name: trg_posts_tags__delete; Type: TRIGGER; Schema: public; Owner: -
+-- Name: posts_tags trg_posts_tags__delete; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_posts_tags__delete BEFORE DELETE ON posts_tags FOR EACH ROW EXECUTE PROCEDURE trg_posts_tags__delete();
 
 
 --
--- Name: trg_posts_tags__insert; Type: TRIGGER; Schema: public; Owner: -
+-- Name: posts_tags trg_posts_tags__insert; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_posts_tags__insert BEFORE INSERT ON posts_tags FOR EACH ROW EXECUTE PROCEDURE trg_posts_tags__insert();
 
 
 --
--- Name: trg_wiki_page_search_update; Type: TRIGGER; Schema: public; Owner: -
+-- Name: wiki_pages trg_wiki_page_search_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_wiki_page_search_update BEFORE INSERT OR UPDATE ON wiki_pages FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('text_search_index', 'pg_catalog.english', 'title', 'body');
 
 
 --
--- Name: artist_urls_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: artist_urls artist_urls_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artist_urls
@@ -2830,7 +2808,7 @@ ALTER TABLE ONLY artist_urls
 
 
 --
--- Name: artists_alias_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: artists artists_alias_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artists
@@ -2838,7 +2816,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: artists_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: artists artists_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artists
@@ -2846,7 +2824,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: artists_updater_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: artists artists_updater_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY artists
@@ -2854,7 +2832,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: bans_banned_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bans bans_banned_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bans
@@ -2862,7 +2840,7 @@ ALTER TABLE ONLY bans
 
 
 --
--- Name: bans_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bans bans_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bans
@@ -2870,7 +2848,7 @@ ALTER TABLE ONLY bans
 
 
 --
--- Name: batch_uploads_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: batch_uploads batch_uploads_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY batch_uploads
@@ -2878,7 +2856,7 @@ ALTER TABLE ONLY batch_uploads
 
 
 --
--- Name: comment_fragments_comment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: comment_fragments comment_fragments_comment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comment_fragments
@@ -2886,7 +2864,7 @@ ALTER TABLE ONLY comment_fragments
 
 
 --
--- Name: dmails_from_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: dmails dmails_from_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dmails
@@ -2894,7 +2872,7 @@ ALTER TABLE ONLY dmails
 
 
 --
--- Name: dmails_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: dmails dmails_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dmails
@@ -2902,7 +2880,7 @@ ALTER TABLE ONLY dmails
 
 
 --
--- Name: dmails_to_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: dmails dmails_to_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dmails
@@ -2910,7 +2888,7 @@ ALTER TABLE ONLY dmails
 
 
 --
--- Name: fk_comments__post; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: comments fk_comments__post; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -2918,7 +2896,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: fk_comments__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: comments fk_comments__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -2926,7 +2904,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: fk_favorites__post ; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: favorites fk_favorites__post ; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY favorites
@@ -2934,7 +2912,7 @@ ALTER TABLE ONLY favorites
 
 
 --
--- Name: fk_favorites__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: favorites fk_favorites__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY favorites
@@ -2942,7 +2920,7 @@ ALTER TABLE ONLY favorites
 
 
 --
--- Name: fk_note_versions__note; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: note_versions fk_note_versions__note; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY note_versions
@@ -2950,7 +2928,7 @@ ALTER TABLE ONLY note_versions
 
 
 --
--- Name: fk_note_versions__post; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: note_versions fk_note_versions__post; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY note_versions
@@ -2958,7 +2936,7 @@ ALTER TABLE ONLY note_versions
 
 
 --
--- Name: fk_note_versions__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: note_versions fk_note_versions__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY note_versions
@@ -2966,7 +2944,7 @@ ALTER TABLE ONLY note_versions
 
 
 --
--- Name: fk_notes__post; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: notes fk_notes__post; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notes
@@ -2974,7 +2952,7 @@ ALTER TABLE ONLY notes
 
 
 --
--- Name: fk_notes__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: notes fk_notes__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notes
@@ -2982,15 +2960,7 @@ ALTER TABLE ONLY notes
 
 
 --
--- Name: fk_post_tag_histories__post; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY post_tag_histories
-    ADD CONSTRAINT fk_post_tag_histories__post FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_posts__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts fk_posts__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -2998,7 +2968,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: fk_posts_tags__tag; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts_tags fk_posts_tags__tag; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts_tags
@@ -3006,7 +2976,7 @@ ALTER TABLE ONLY posts_tags
 
 
 --
--- Name: fk_tag_aliases__alias; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_aliases fk_tag_aliases__alias; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_aliases
@@ -3014,7 +2984,7 @@ ALTER TABLE ONLY tag_aliases
 
 
 --
--- Name: fk_tag_implications__child; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_implications fk_tag_implications__child; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_implications
@@ -3022,7 +2992,7 @@ ALTER TABLE ONLY tag_implications
 
 
 --
--- Name: fk_tag_implications__parent; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_implications fk_tag_implications__parent; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_implications
@@ -3030,7 +3000,7 @@ ALTER TABLE ONLY tag_implications
 
 
 --
--- Name: fk_wiki_page_versions__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: wiki_page_versions fk_wiki_page_versions__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY wiki_page_versions
@@ -3038,7 +3008,7 @@ ALTER TABLE ONLY wiki_page_versions
 
 
 --
--- Name: fk_wiki_page_versions__wiki_page; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: wiki_page_versions fk_wiki_page_versions__wiki_page; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY wiki_page_versions
@@ -3046,7 +3016,7 @@ ALTER TABLE ONLY wiki_page_versions
 
 
 --
--- Name: fk_wiki_pages__user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: wiki_pages fk_wiki_pages__user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY wiki_pages
@@ -3054,7 +3024,7 @@ ALTER TABLE ONLY wiki_pages
 
 
 --
--- Name: flagged_post_details_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: flagged_post_details flagged_post_details_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY flagged_post_details
@@ -3062,7 +3032,7 @@ ALTER TABLE ONLY flagged_post_details
 
 
 --
--- Name: flagged_post_details_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: flagged_post_details flagged_post_details_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY flagged_post_details
@@ -3070,7 +3040,7 @@ ALTER TABLE ONLY flagged_post_details
 
 
 --
--- Name: forum_posts_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: forum_posts forum_posts_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY forum_posts
@@ -3078,7 +3048,7 @@ ALTER TABLE ONLY forum_posts
 
 
 --
--- Name: forum_posts_last_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: forum_posts forum_posts_last_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY forum_posts
@@ -3086,7 +3056,7 @@ ALTER TABLE ONLY forum_posts
 
 
 --
--- Name: forum_posts_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: forum_posts forum_posts_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY forum_posts
@@ -3094,7 +3064,7 @@ ALTER TABLE ONLY forum_posts
 
 
 --
--- Name: history_changes_history_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: history_changes history_changes_history_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY history_changes
@@ -3102,7 +3072,7 @@ ALTER TABLE ONLY history_changes
 
 
 --
--- Name: history_changes_previous_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: history_changes history_changes_previous_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY history_changes
@@ -3110,7 +3080,7 @@ ALTER TABLE ONLY history_changes
 
 
 --
--- Name: inline_images_inline_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: inline_images inline_images_inline_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inline_images
@@ -3118,7 +3088,7 @@ ALTER TABLE ONLY inline_images
 
 
 --
--- Name: inlines_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: inlines inlines_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inlines
@@ -3126,7 +3096,7 @@ ALTER TABLE ONLY inlines
 
 
 --
--- Name: pools_posts_next_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_next_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools_posts
@@ -3134,7 +3104,7 @@ ALTER TABLE ONLY pools_posts
 
 
 --
--- Name: pools_posts_pool_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_pool_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools_posts
@@ -3142,7 +3112,7 @@ ALTER TABLE ONLY pools_posts
 
 
 --
--- Name: pools_posts_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools_posts
@@ -3150,7 +3120,7 @@ ALTER TABLE ONLY pools_posts
 
 
 --
--- Name: pools_posts_prev_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pools_posts pools_posts_prev_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools_posts
@@ -3158,7 +3128,7 @@ ALTER TABLE ONLY pools_posts
 
 
 --
--- Name: pools_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pools pools_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pools
@@ -3166,7 +3136,7 @@ ALTER TABLE ONLY pools
 
 
 --
--- Name: post_frames_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: post_frames post_frames_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_frames
@@ -3174,15 +3144,7 @@ ALTER TABLE ONLY post_frames
 
 
 --
--- Name: post_tag_histories_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY post_tag_histories
-    ADD CONSTRAINT post_tag_histories_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
-
-
---
--- Name: post_votes_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: post_votes post_votes_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_votes
@@ -3190,7 +3152,7 @@ ALTER TABLE ONLY post_votes
 
 
 --
--- Name: post_votes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: post_votes post_votes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY post_votes
@@ -3198,7 +3160,7 @@ ALTER TABLE ONLY post_votes
 
 
 --
--- Name: posts_approver_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts posts_approver_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -3206,7 +3168,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: posts_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts posts_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -3214,7 +3176,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: posts_tags_post_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts_tags posts_tags_post_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts_tags
@@ -3222,7 +3184,7 @@ ALTER TABLE ONLY posts_tags
 
 
 --
--- Name: tag_aliases_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_aliases tag_aliases_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_aliases
@@ -3230,7 +3192,7 @@ ALTER TABLE ONLY tag_aliases
 
 
 --
--- Name: tag_implications_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_implications tag_implications_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_implications
@@ -3238,7 +3200,7 @@ ALTER TABLE ONLY tag_implications
 
 
 --
--- Name: tag_subscriptions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_subscriptions tag_subscriptions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_subscriptions
@@ -3246,7 +3208,7 @@ ALTER TABLE ONLY tag_subscriptions
 
 
 --
--- Name: user_blacklisted_tags_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_blacklisted_tags user_blacklisted_tags_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_blacklisted_tags
@@ -3254,7 +3216,7 @@ ALTER TABLE ONLY user_blacklisted_tags
 
 
 --
--- Name: user_logs_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_logs user_logs_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_logs
@@ -3262,7 +3224,7 @@ ALTER TABLE ONLY user_logs
 
 
 --
--- Name: user_records_reported_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_records user_records_reported_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_records
@@ -3270,7 +3232,7 @@ ALTER TABLE ONLY user_records
 
 
 --
--- Name: user_records_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_records user_records_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_records
@@ -3278,7 +3240,7 @@ ALTER TABLE ONLY user_records
 
 
 --
--- Name: users_avatar_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_avatar_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -3291,351 +3253,181 @@ ALTER TABLE ONLY users
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('1');
+INSERT INTO "schema_migrations" (version) VALUES
+('1'),
+('10'),
+('11'),
+('12'),
+('13'),
+('14'),
+('15'),
+('16'),
+('17'),
+('18'),
+('19'),
+('2'),
+('20'),
+('20080901000000'),
+('20080927145957'),
+('20081015004825'),
+('20081015004855'),
+('20081015004938'),
+('20081015005018'),
+('20081015005051'),
+('20081015005124'),
+('20081015005201'),
+('20081015005919'),
+('20081015010657'),
+('20081016002814'),
+('20081018175545'),
+('20081023224739'),
+('20081024083115'),
+('20081024223856'),
+('20081025222424'),
+('20081105030832'),
+('20081122055610'),
+('20081130190723'),
+('20081130191226'),
+('20081203035506'),
+('20081204062728'),
+('20081205061033'),
+('20081205072029'),
+('20081208220020'),
+('20081209221550'),
+('20081210193125'),
+('20090115234541'),
+('20090123212834'),
+('20090208201752'),
+('20090215000207'),
+('20090903232732'),
+('20091228170149'),
+('20100101225942'),
+('20100827031936'),
+('20100831065951'),
+('20100903220234'),
+('20100906054326'),
+('20100907042612'),
+('20100907210915'),
+('20100907215811'),
+('20101011000658'),
+('20101027013550'),
+('20101116221443'),
+('20101212021821'),
+('20101218070942'),
+('20110116202516'),
+('20110228010717'),
+('20120331040429'),
+('20120505130017'),
+('20120624121058'),
+('20120723155345'),
+('20120723161914'),
+('20120804130515'),
+('20120813155642'),
+('20120830051636'),
+('20120920171733'),
+('20120920172947'),
+('20120920173324'),
+('20120920173803'),
+('20120920174218'),
+('20120921040720'),
+('20130326154700'),
+('20130326161630'),
+('20140309152432'),
+('20140427041839'),
+('20140429125422'),
+('20140905023318'),
+('20151207113346'),
+('20160113112901'),
+('20160329065325'),
+('20160329065802'),
+('20160329154133'),
+('20160329160235'),
+('20160329161636'),
+('20160330063707'),
+('20180118212450'),
+('21'),
+('22'),
+('23'),
+('24'),
+('25'),
+('26'),
+('27'),
+('28'),
+('29'),
+('3'),
+('30'),
+('31'),
+('32'),
+('33'),
+('34'),
+('35'),
+('36'),
+('37'),
+('38'),
+('39'),
+('4'),
+('40'),
+('41'),
+('42'),
+('43'),
+('44'),
+('45'),
+('46'),
+('47'),
+('48'),
+('49'),
+('5'),
+('50'),
+('51'),
+('52'),
+('53'),
+('54'),
+('55'),
+('56'),
+('57'),
+('58'),
+('59'),
+('6'),
+('60'),
+('61'),
+('62'),
+('63'),
+('64'),
+('65'),
+('66'),
+('67'),
+('68'),
+('69'),
+('7'),
+('70'),
+('71'),
+('72'),
+('73'),
+('74'),
+('75'),
+('76'),
+('77'),
+('78'),
+('79'),
+('8'),
+('80'),
+('81'),
+('82'),
+('83'),
+('84'),
+('85'),
+('86'),
+('87'),
+('88'),
+('89'),
+('9'),
+('90'),
+('91'),
+('9142010220946'),
+('92'),
+('93'),
+('94'),
+('95'),
+('96');
 
-INSERT INTO schema_migrations (version) VALUES ('10');
-
-INSERT INTO schema_migrations (version) VALUES ('11');
-
-INSERT INTO schema_migrations (version) VALUES ('12');
-
-INSERT INTO schema_migrations (version) VALUES ('13');
-
-INSERT INTO schema_migrations (version) VALUES ('14');
-
-INSERT INTO schema_migrations (version) VALUES ('15');
-
-INSERT INTO schema_migrations (version) VALUES ('16');
-
-INSERT INTO schema_migrations (version) VALUES ('17');
-
-INSERT INTO schema_migrations (version) VALUES ('18');
-
-INSERT INTO schema_migrations (version) VALUES ('19');
-
-INSERT INTO schema_migrations (version) VALUES ('2');
-
-INSERT INTO schema_migrations (version) VALUES ('20');
-
-INSERT INTO schema_migrations (version) VALUES ('20080901000000');
-
-INSERT INTO schema_migrations (version) VALUES ('20080927145957');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015004825');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015004855');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015004938');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015005018');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015005051');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015005124');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015005201');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015005919');
-
-INSERT INTO schema_migrations (version) VALUES ('20081015010657');
-
-INSERT INTO schema_migrations (version) VALUES ('20081016002814');
-
-INSERT INTO schema_migrations (version) VALUES ('20081018175545');
-
-INSERT INTO schema_migrations (version) VALUES ('20081023224739');
-
-INSERT INTO schema_migrations (version) VALUES ('20081024083115');
-
-INSERT INTO schema_migrations (version) VALUES ('20081024223856');
-
-INSERT INTO schema_migrations (version) VALUES ('20081025222424');
-
-INSERT INTO schema_migrations (version) VALUES ('20081105030832');
-
-INSERT INTO schema_migrations (version) VALUES ('20081122055610');
-
-INSERT INTO schema_migrations (version) VALUES ('20081130190723');
-
-INSERT INTO schema_migrations (version) VALUES ('20081130191226');
-
-INSERT INTO schema_migrations (version) VALUES ('20081203035506');
-
-INSERT INTO schema_migrations (version) VALUES ('20081204062728');
-
-INSERT INTO schema_migrations (version) VALUES ('20081205061033');
-
-INSERT INTO schema_migrations (version) VALUES ('20081205072029');
-
-INSERT INTO schema_migrations (version) VALUES ('20081208220020');
-
-INSERT INTO schema_migrations (version) VALUES ('20081209221550');
-
-INSERT INTO schema_migrations (version) VALUES ('20081210193125');
-
-INSERT INTO schema_migrations (version) VALUES ('20090115234541');
-
-INSERT INTO schema_migrations (version) VALUES ('20090123212834');
-
-INSERT INTO schema_migrations (version) VALUES ('20090208201752');
-
-INSERT INTO schema_migrations (version) VALUES ('20090215000207');
-
-INSERT INTO schema_migrations (version) VALUES ('20090903232732');
-
-INSERT INTO schema_migrations (version) VALUES ('20091228170149');
-
-INSERT INTO schema_migrations (version) VALUES ('20100101225942');
-
-INSERT INTO schema_migrations (version) VALUES ('20100827031936');
-
-INSERT INTO schema_migrations (version) VALUES ('20100831065951');
-
-INSERT INTO schema_migrations (version) VALUES ('20100903220234');
-
-INSERT INTO schema_migrations (version) VALUES ('20100906054326');
-
-INSERT INTO schema_migrations (version) VALUES ('20100907042612');
-
-INSERT INTO schema_migrations (version) VALUES ('20100907210915');
-
-INSERT INTO schema_migrations (version) VALUES ('20100907215811');
-
-INSERT INTO schema_migrations (version) VALUES ('20101011000658');
-
-INSERT INTO schema_migrations (version) VALUES ('20101027013550');
-
-INSERT INTO schema_migrations (version) VALUES ('20101116221443');
-
-INSERT INTO schema_migrations (version) VALUES ('20101212021821');
-
-INSERT INTO schema_migrations (version) VALUES ('20101218070942');
-
-INSERT INTO schema_migrations (version) VALUES ('20110116202516');
-
-INSERT INTO schema_migrations (version) VALUES ('20110228010717');
-
-INSERT INTO schema_migrations (version) VALUES ('20120331040429');
-
-INSERT INTO schema_migrations (version) VALUES ('20120505130017');
-
-INSERT INTO schema_migrations (version) VALUES ('20120624121058');
-
-INSERT INTO schema_migrations (version) VALUES ('20120723155345');
-
-INSERT INTO schema_migrations (version) VALUES ('20120723161914');
-
-INSERT INTO schema_migrations (version) VALUES ('20120804130515');
-
-INSERT INTO schema_migrations (version) VALUES ('20120813155642');
-
-INSERT INTO schema_migrations (version) VALUES ('20120830051636');
-
-INSERT INTO schema_migrations (version) VALUES ('20120920171733');
-
-INSERT INTO schema_migrations (version) VALUES ('20120920172947');
-
-INSERT INTO schema_migrations (version) VALUES ('20120920173324');
-
-INSERT INTO schema_migrations (version) VALUES ('20120920173803');
-
-INSERT INTO schema_migrations (version) VALUES ('20120920174218');
-
-INSERT INTO schema_migrations (version) VALUES ('20120921040720');
-
-INSERT INTO schema_migrations (version) VALUES ('20130326154700');
-
-INSERT INTO schema_migrations (version) VALUES ('20130326161630');
-
-INSERT INTO schema_migrations (version) VALUES ('20140309152432');
-
-INSERT INTO schema_migrations (version) VALUES ('20140427041839');
-
-INSERT INTO schema_migrations (version) VALUES ('20140429125422');
-
-INSERT INTO schema_migrations (version) VALUES ('20140905023318');
-
-INSERT INTO schema_migrations (version) VALUES ('20151207113346');
-
-INSERT INTO schema_migrations (version) VALUES ('20160113112901');
-
-INSERT INTO schema_migrations (version) VALUES ('20160329065325');
-
-INSERT INTO schema_migrations (version) VALUES ('20160329065802');
-
-INSERT INTO schema_migrations (version) VALUES ('20160329154133');
-
-INSERT INTO schema_migrations (version) VALUES ('20160329160235');
-
-INSERT INTO schema_migrations (version) VALUES ('20160329161636');
-
-INSERT INTO schema_migrations (version) VALUES ('20160330063707');
-
-INSERT INTO schema_migrations (version) VALUES ('21');
-
-INSERT INTO schema_migrations (version) VALUES ('22');
-
-INSERT INTO schema_migrations (version) VALUES ('23');
-
-INSERT INTO schema_migrations (version) VALUES ('24');
-
-INSERT INTO schema_migrations (version) VALUES ('25');
-
-INSERT INTO schema_migrations (version) VALUES ('26');
-
-INSERT INTO schema_migrations (version) VALUES ('27');
-
-INSERT INTO schema_migrations (version) VALUES ('28');
-
-INSERT INTO schema_migrations (version) VALUES ('29');
-
-INSERT INTO schema_migrations (version) VALUES ('3');
-
-INSERT INTO schema_migrations (version) VALUES ('30');
-
-INSERT INTO schema_migrations (version) VALUES ('31');
-
-INSERT INTO schema_migrations (version) VALUES ('32');
-
-INSERT INTO schema_migrations (version) VALUES ('33');
-
-INSERT INTO schema_migrations (version) VALUES ('34');
-
-INSERT INTO schema_migrations (version) VALUES ('35');
-
-INSERT INTO schema_migrations (version) VALUES ('36');
-
-INSERT INTO schema_migrations (version) VALUES ('37');
-
-INSERT INTO schema_migrations (version) VALUES ('38');
-
-INSERT INTO schema_migrations (version) VALUES ('39');
-
-INSERT INTO schema_migrations (version) VALUES ('4');
-
-INSERT INTO schema_migrations (version) VALUES ('40');
-
-INSERT INTO schema_migrations (version) VALUES ('41');
-
-INSERT INTO schema_migrations (version) VALUES ('42');
-
-INSERT INTO schema_migrations (version) VALUES ('43');
-
-INSERT INTO schema_migrations (version) VALUES ('44');
-
-INSERT INTO schema_migrations (version) VALUES ('45');
-
-INSERT INTO schema_migrations (version) VALUES ('46');
-
-INSERT INTO schema_migrations (version) VALUES ('47');
-
-INSERT INTO schema_migrations (version) VALUES ('48');
-
-INSERT INTO schema_migrations (version) VALUES ('49');
-
-INSERT INTO schema_migrations (version) VALUES ('5');
-
-INSERT INTO schema_migrations (version) VALUES ('50');
-
-INSERT INTO schema_migrations (version) VALUES ('51');
-
-INSERT INTO schema_migrations (version) VALUES ('52');
-
-INSERT INTO schema_migrations (version) VALUES ('53');
-
-INSERT INTO schema_migrations (version) VALUES ('54');
-
-INSERT INTO schema_migrations (version) VALUES ('55');
-
-INSERT INTO schema_migrations (version) VALUES ('56');
-
-INSERT INTO schema_migrations (version) VALUES ('57');
-
-INSERT INTO schema_migrations (version) VALUES ('58');
-
-INSERT INTO schema_migrations (version) VALUES ('59');
-
-INSERT INTO schema_migrations (version) VALUES ('6');
-
-INSERT INTO schema_migrations (version) VALUES ('60');
-
-INSERT INTO schema_migrations (version) VALUES ('61');
-
-INSERT INTO schema_migrations (version) VALUES ('62');
-
-INSERT INTO schema_migrations (version) VALUES ('63');
-
-INSERT INTO schema_migrations (version) VALUES ('64');
-
-INSERT INTO schema_migrations (version) VALUES ('65');
-
-INSERT INTO schema_migrations (version) VALUES ('66');
-
-INSERT INTO schema_migrations (version) VALUES ('67');
-
-INSERT INTO schema_migrations (version) VALUES ('68');
-
-INSERT INTO schema_migrations (version) VALUES ('69');
-
-INSERT INTO schema_migrations (version) VALUES ('7');
-
-INSERT INTO schema_migrations (version) VALUES ('70');
-
-INSERT INTO schema_migrations (version) VALUES ('71');
-
-INSERT INTO schema_migrations (version) VALUES ('72');
-
-INSERT INTO schema_migrations (version) VALUES ('73');
-
-INSERT INTO schema_migrations (version) VALUES ('74');
-
-INSERT INTO schema_migrations (version) VALUES ('75');
-
-INSERT INTO schema_migrations (version) VALUES ('76');
-
-INSERT INTO schema_migrations (version) VALUES ('77');
-
-INSERT INTO schema_migrations (version) VALUES ('78');
-
-INSERT INTO schema_migrations (version) VALUES ('79');
-
-INSERT INTO schema_migrations (version) VALUES ('8');
-
-INSERT INTO schema_migrations (version) VALUES ('80');
-
-INSERT INTO schema_migrations (version) VALUES ('81');
-
-INSERT INTO schema_migrations (version) VALUES ('82');
-
-INSERT INTO schema_migrations (version) VALUES ('83');
-
-INSERT INTO schema_migrations (version) VALUES ('84');
-
-INSERT INTO schema_migrations (version) VALUES ('85');
-
-INSERT INTO schema_migrations (version) VALUES ('86');
-
-INSERT INTO schema_migrations (version) VALUES ('87');
-
-INSERT INTO schema_migrations (version) VALUES ('88');
-
-INSERT INTO schema_migrations (version) VALUES ('89');
-
-INSERT INTO schema_migrations (version) VALUES ('9');
-
-INSERT INTO schema_migrations (version) VALUES ('90');
-
-INSERT INTO schema_migrations (version) VALUES ('91');
-
-INSERT INTO schema_migrations (version) VALUES ('9142010220946');
-
-INSERT INTO schema_migrations (version) VALUES ('92');
-
-INSERT INTO schema_migrations (version) VALUES ('93');
-
-INSERT INTO schema_migrations (version) VALUES ('94');
-
-INSERT INTO schema_migrations (version) VALUES ('95');
-
-INSERT INTO schema_migrations (version) VALUES ('96');
 

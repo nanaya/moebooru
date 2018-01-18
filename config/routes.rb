@@ -158,7 +158,6 @@ Rails.application.routes.draw do
   match "post/upload_problem", :via => [:post, :get]
   match "post/view(/:id)" => "post#view", :via => [:post, :get]
   match "post/flag(/:id)" => "post#flag", :via => [:post, :put]
-  match "post/revert_tags(.:format)(/:id)" => "post#revert_tags", :via => [:post, :put]
   match "post/update(.:format)(/:id)" => "post#update", :via => [:post, :put]
   match "post/vote(.:format)(/:id)" => "post#vote", :via => [:post, :put]
   match "post/destroy(.:format)(/:id)" => "post#destroy", :via => [:post, :delete]

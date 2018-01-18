@@ -360,66 +360,6 @@ module ActiveRecord
         end
       end
 
-      def import_post_tag_history
-        count = PostTagHistory.count(:all)
-        current = 1
-        PostTagHistory.find(:all, :order => "id ASC").each do |tag_history|
-          p "%i/%i" % [current, count]
-          current += 1
-
-          prev = tag_history.previous
-
-          tags = tag_history.tags.scan(/\S+/)
-          metatags, tags = tags.partition { |x| x =~ /^(?:rating):/ }
-          tags = tags.sort.join(" ")
-
-          rating = ""
-          prev_rating = ""
-          metatags.each do |metatag|
-            case metatag
-            when /^rating:([qse])/
-              rating = Regexp.last_match[1]
-            end
-          end
-
-          if prev
-            prev_tags = prev.tags.scan(/\S+/)
-            prev_metatags, prev_tags = prev_tags.partition { |x| x =~ /^(?:-pool|pool|rating|parent):/ }
-            prev_tags = prev_tags.sort.join(" ")
-
-            prev_metatags.each do |metatag|
-              case metatag
-              when /^rating:([qse])/
-                prev_rating = Regexp.last_match[1]
-              end
-            end
-          end
-
-          if tags != prev_tags || rating != prev_rating
-            h = History.new(:group_by_table => "posts",
-                            :group_by_id => tag_history.post_id,
-                            :user_id => tag_history.user_id || tag_history.post.user_id,
-                            :created_at => tag_history.created_at)
-            h.save!
-          end
-          if tags != prev_tags
-            c = h.history_changes.new(:table_name => "posts",
-                                      :remote_id => tag_history.post_id,
-                                      :column_name => "cached_tags",
-                                      :value => tags)
-            c.save!
-          end
-
-          if rating != prev_rating
-            c = h.history_changes.new(:table_name => "posts",
-                                      :remote_id => tag_history.post_id,
-                                      :column_name => "rating",
-                                      :value => rating)
-            c.save!
-          end
-        end
-      end
-
       def import_note_history
         count = NoteVersion.count(:all)
         current = 1

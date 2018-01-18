@@ -41,49 +41,6 @@ namespace :posts do
     end
   end
 
-  desc "Add missing tag history data"
-  task :add_post_history => :environment do
-    # Add missing metatags to post_tag_history, using the nearest data (nearby tag
-    # history or the post itself).  We won't break if this is missing, but this data
-    # will be added on the next change for every post, which will make it look like
-    # people are making changes that they're not.
-    PostTagHistory.transaction do
-      PostTagHistory.find(:all, :order => "id ASC").each do |change|
-        #:all, :order => "id ASC").each
-        post = Post.find(change.post_id)
-        next_change = change.next
-        if next_change
-          next_change = next_change.tags
-        else
-          next_change = ""
-        end
-
-        prev_change = change.previous
-        if prev_change
-          prev_change = prev_change.tags
-        else
-          prev_change = ""
-        end
-
-        sources = [prev_change, next_change, post.cached_tags_versioned].map { |x| get_metatags(x) }
-        current_metatags = get_metatags(change.tags)
-
-        metatags_to_add = []
-        [:rating].each do |metatag|
-          next if current_metatags[metatag]
-          val = nil
-          sources.each { |source| val ||= source[metatag] }
-
-          metatags_to_add += [metatag.to_s + ":" + val]
-        end
-
-        next if metatags_to_add.empty?
-        change.tags = (metatags_to_add + [change.tags]).join(" ")
-        change.save!
-      end
-    end
-  end
-
   desc "Upload posts to mirrors"
   task :mirror => :environment do
     Post.find(:all, :conditions => ["NOT is_warehoused AND status <> 'deleted'"], :order => "id DESC").each do |post|

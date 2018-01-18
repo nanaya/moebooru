@@ -31,6 +31,7 @@ module Report
     add_sum(users)
   end
 
+  # FIXME: update to use updated versioning system
   def tag_updates(start, stop, limit, level)
     users = usage_by_user("post_tag_histories", start, stop, limit, level)
     users.each do |user|

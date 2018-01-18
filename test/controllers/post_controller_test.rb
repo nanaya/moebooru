@@ -160,18 +160,6 @@ class PostControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_revert_tags
-    p1 = create_post("tag1", 1)
-    update_post(p1, :tags => "hoge")
-    update_post(p1, :tags => "moge")
-
-    history_id = p1.tag_history[-1].id
-
-    post :revert_tags, :params => { :id => p1.id, :history_id => history_id }, :session => { :user_id => 3 }
-    p1.reload
-    assert_equal("tag1", p1.cached_tags)
-  end
-
   def test_vote
     p1 = create_post("tag1", 1)
 

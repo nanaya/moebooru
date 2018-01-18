@@ -51,8 +51,6 @@ module Post::TagMethods
     m.extend ClassMethods
     m.before_save :commit_metatags
     m.after_save :commit_tags
-    m.after_save :save_post_history
-    m.has_many :tag_history, lambda { order "id DESC" }, :class_name => "PostTagHistory", :table_name => "post_tag_histories"
     m.versioned :source, :default => ""
     m.versioned :cached_tags
   end
@@ -280,15 +278,6 @@ module Post::TagMethods
       self.cached_tags = select_value_sql("SELECT cached_tags FROM posts WHERE id = #{id}")
 
       self.new_tags = nil
-    end
-  end
-
-  def save_post_history
-    new_cached_tags = cached_tags_versioned
-    if tag_history.empty? || tag_history.first.tags != new_cached_tags
-      PostTagHistory.create(:post_id => id, :tags => new_cached_tags,
-                            :user_id => Thread.current["danbooru-user_id"],
-                            :ip_addr => Thread.current["danbooru-ip_addr"] || "127.0.0.1")
     end
   end
 end
