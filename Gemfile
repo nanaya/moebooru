@@ -31,6 +31,8 @@ gem "image_size"
 gem "i18n-js", ">= 3.0.0.rc7"
 gem "mini_mime"
 
+gem 'bootsnap', require: false
+
 group :standalone do
   platform :mri do
     gem "unicorn", :require => false
