@@ -32,10 +32,6 @@ class ApplicationController < ActionController::Base
     end
 
     def set_current_user
-      if Rails.env.test? && session[:user_id]
-        @current_user = User.find_by(:id => session[:user_id])
-      end
-
       if !@current_user && params[:api_key] && params[:username]
         @from_api = true
         @current_user = User.authenticate_with_api_key(params[:username], params[:api_key])
@@ -43,7 +39,7 @@ class ApplicationController < ActionController::Base
       end
 
       if @current_user.nil? && session[:user_id]
-        @current_user = User.find_by_id(session[:user_id])
+        @current_user = User.find(session[:user_id])
       end
 
       if @current_user.nil? && params[:login] && params[:password_hash]
